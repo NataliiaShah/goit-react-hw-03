@@ -13,19 +13,26 @@ const App = () => {
     ];
 
     const [contacts, setContacts] = useState(initialContacts);
+    const [filter, setFilter] = useState("");
 
     const handleDelete = (id) => {
             setContacts((prevContacts) =>
-            prevContacts.filter(contact => contact.id !== id));
-  };
+                prevContacts.filter(contact => contact.id !== id));
+    };
+    const filteredContacts = contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
 
 
     return (
         <div>
             <h1>Phonebook 📱</h1>
             <ContactForm setContacts={setContacts}/>
-            <SearchBox />
-            <ContactList contacts={contacts} onDelete={handleDelete} />
+            <SearchBox filter={filter} onFilterChange={handleFilterChange}/>
+            <ContactList contacts={filteredContacts} onDelete={handleDelete}/>
         </div>
     );
 };
