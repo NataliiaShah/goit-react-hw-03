@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
 import * as Yup from "yup";
+import style from "./ContactForm.module.css";
 
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required("Required"),
@@ -38,18 +39,18 @@ const ContactForm = ({ setContacts }) => {
         >
             
             {({ isValid, dirty }) => (
-                <Form>
-                    <div>
-                        <label htmlFor="name">Name</label>
-                        <Field type="text" name="name" id="name"/>
-                        <ErrorMessage name="name" component="div" style={{ color: 'red' }}/>
+                <Form className={style.containerForm}>
+                    <div className={style.thumb}>
+                        <label className={style.formLabel} htmlFor="name">Name</label>
+                        <Field className={style.formInput} type="text" name="name" id="name"/>
+                        <ErrorMessage className={style.errorSpan} name="name" component="div"/>
                     </div>
-                    <div>
-                        <label htmlFor="number">Number</label>
-                        <Field type="number" name="number" id="number"/>
-                        <ErrorMessage name="number" component="div" style={{ color: 'red' }}/>
+                    <div className={style.thumb}>
+                        <label className={style.formLabel} htmlFor="number">Number</label>
+                        <Field className={style.formInput} type="number" name="number" id="number"/>
+                        <ErrorMessage className={style.errorSpan} name="number" component="div"/>
                     </div>
-                    <button type="submit" disabled={!isValid || !dirty}>Add contact</button>
+                    <button className={style.buttonAdd} type="submit" disabled={!isValid || !dirty}>Add contact</button>
                 </Form>
             )}
         </Formik>
